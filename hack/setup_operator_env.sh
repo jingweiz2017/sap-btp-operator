@@ -43,7 +43,7 @@ data:
   MANAGEMENT_NAMESPACE: "$management_namespace"
 metadata:
   name: sap-btp-operator-config
-  namespace: operators
+  namespace: wr-develop
 EOT
 }
 
@@ -71,7 +71,7 @@ EOT
 }
 
 usage="SAP CP Operator Setup
-namespace parameter indicates the namespace where SM secret can be found, default namespace is 'operators'
+namespace parameter indicates the namespace where SM secret can be found, default namespace is 'wr-develop'
 Usage:
   setup_operator_env <clientid> <clientsecret> <url> <tokenurl> -n <namespace>
 "
@@ -81,7 +81,7 @@ if [ "$#" -lt 4 ]; then
   exit 1
 fi
 
-namespace="operators"
+namespace="wr-develop"
 clientid=$1
 clientsecret=$2
 url=$3
@@ -109,6 +109,6 @@ while test $# -gt 0; do
   esac
 done
 
-kubectl create namespace operators --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace wr-develop --dry-run=client -o yaml | kubectl apply -f -
 store_configmap "$namespace"
 store_secret "$clientid" "$clientsecret" "$url" "$tokenurl" "$namespace"
