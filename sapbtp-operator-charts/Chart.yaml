@@ -1,0 +1,5 @@
+apiVersion: v2
+appVersion: "master"
+name: cloudci-sap-btp-operator
+description: A Helm chart for SAP BTP Operator for Kubernetes (Cloud CI Service Fork)
+version: 0.2.0

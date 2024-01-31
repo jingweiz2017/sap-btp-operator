@@ -1,0 +1,99 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-services-cloud-sap-com-v1-servicebinding
+  failurePolicy: Fail
+  name: mservicebinding.kb.io
+  rules:
+  - apiGroups:
+    - services.cloud.sap.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - servicebindings
+  sideEffects: None
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-services-cloud-sap-com-v1-serviceinstance
+  failurePolicy: Fail
+  name: mserviceinstance.kb.io
+  rules:
+  - apiGroups:
+    - services.cloud.sap.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - serviceinstances
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-services-cloud-sap-com-v1-servicebinding
+  failurePolicy: Fail
+  name: vservicebinding.kb.io
+  rules:
+  - apiGroups:
+    - services.cloud.sap.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - servicebindings
+  sideEffects: None
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-services-cloud-sap-com-v1-serviceinstance
+  failurePolicy: Fail
+  name: vserviceinstance.kb.io
+  rules:
+  - apiGroups:
+    - services.cloud.sap.com
+    apiVersions:
+    - v1
+    operations:
+    - DELETE
+    - UPDATE
+    - CREATE
+    resources:
+    - serviceinstances
+  sideEffects: None

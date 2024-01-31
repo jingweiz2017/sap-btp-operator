@@ -1,0 +1,4 @@
+general:
+  xMakeBuildQuality: Release
+  xMakeCredentialsId: xmakeNova
+  notificationRecipients: DL_5A33800D7BCF84FCFA0001F6@exchange.sap.corp
